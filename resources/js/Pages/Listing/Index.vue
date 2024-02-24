@@ -7,12 +7,16 @@
       listings: {
          type: Object,
          default: []
+      },
+      filters: {
+         type: [Array,Object],
+         default: []
       }
    })
 </script>
 
 <template>
-   <Filters />
+   <Filters :filters="filters" />
    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       <Listing v-for="(list, index) in listings.data" :key="index" :list="list">
       </Listing>

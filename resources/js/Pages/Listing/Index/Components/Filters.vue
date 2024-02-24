@@ -7,14 +7,13 @@
          default: () => {}
       }
    });
-
    const filterForm = useForm({
-      priceFrom: null,
-      priceTo: null,
-      beds: null,
-      baths: null,
-      areaFrom: null,
-      areaTo: null
+      priceFrom: props.filters.priceFrom ?? null,
+      priceTo: props.filters.priceTo ?? null,
+      beds: props.filters.beds ?? null,
+      baths: props.filters.baths ?? null,
+      areaFrom: props.filters.areaFrom ?? null,
+      areaTo: props.filters.areaTo ?? null
    })
 
    function handleFilter() {
@@ -28,7 +27,13 @@
    }
 
    function clearFilter() {
-         
+         filterForm.priceFrom = null
+         filterForm.priceTo = null,
+         filterForm.beds = null,
+         filterForm.baths = null,
+         filterForm.areaFrom = null,
+         filterForm.areaTo = null
+         handleFilter()
    }
 </script>
 
@@ -57,7 +62,7 @@
          </div>
 
          <button type="submit" class="primary-button">Filter</button>
-         <button type="reset" class="">Clear</button>
+         <button type="reset" @click="clearFilter">Clear</button>
       </div>
    </form>
 </template>

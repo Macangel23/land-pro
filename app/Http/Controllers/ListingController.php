@@ -18,10 +18,37 @@ class ListingController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-   public function index()
+   public function index(Request $request)
    {
+      $filters =  $request->only([
+         'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+      ]);
+
+      // if(isset($filters['priceFrom'])){
+      //    $query->where('price', '>=', $filters['priceFrom']);
+      // }
+      // if(isset($filters['priceTo'])){
+      //    $query->where('price', '<=', $filters['priceTo']);
+      // }
+      // if(isset($filters['beds'])){
+      //    $query->where('beds', $filters['beds']);
+      // }
+      // if(isset($filters['baths'])){
+      //    $query->where('baths', $filters['baths']);
+      // }
+      // if(isset($filters['areaFrom'])){
+      //    $query->where('area', '>=', $filters['areaFrom']);
+      // }
+      // if(isset($filters['areaTo'])){
+      //    $query->where('are', '<=', $filters['areaTo']);
+      // }
+
       return Inertia::render('Listing/Index',[
-         'listings' => Listing::orderByDesc('created_at')->paginate(5)
+         'filters' => $filters,
+         'listings' => Listing::mostRecent()
+                  ->filter($filters)
+                  ->paginate(5)
+                  ->withQueryString()
       ]);
    }
 
